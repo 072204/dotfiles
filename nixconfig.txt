@@ -1,0 +1,126 @@
+# Edit this configuration file to define what should be installed on
+# your system. Help is available in the configuration.nix(5) man page, on
+# https://search.nixos.org/options and in the NixOS manual (`nixos-help`).
+
+{ config, lib, pkgs, ... }:
+
+{
+  imports =
+    [ 
+      ./hardware-configuration.nix
+    ];
+
+  # Use the systemd-boot EFI boot loader.
+  boot.loader.systemd-boot.enable = true;
+  boot.loader.efi.canTouchEfiVariables = true;
+
+  # initial setup
+  networking.hostName = "LENOVO";
+  networking.networkmanager.enable = true;
+  time.timeZone = "US/Los_Angeles";
+  i18n.defaultLocale = "en_US.UTF-8";
+     console = {
+     font = "Lat2-Terminus16";
+     useXkbConfig = true;
+  };
+
+  # desktop
+  services.printing.enable = true;
+  sound.enable = true;
+  hardware.pulseaudio.enable = true;
+  services.xserver.libinput.enable = true;
+  programs.hyprland.enable = true;
+
+  # profile
+  users.users.maya = {
+     isNormalUser = true;
+     extraGroups = [ "wheel" ]; # Enable ‘sudo’ for the user.
+     packages = with pkgs; [
+     ];
+  };
+  # packages
+  nixpkgs.config.allowUnfree = true;
+  environment.systemPackages = with pkgs; [
+     # basics / terminal 
+     vim
+     wget
+     git
+     mpv
+     lf
+     neofetch
+     cmatrix
+     cava
+     fish
+     stow
+     tree
+     mpd
+     lynx
+     youtube-tui
+     spotify-tui
+     wordgrinder
+     genpass
+     bluetuith
+     pass
+     htop
+     btop
+     tty-clock
+     megatools
+     cointop
+     ncpamixer
+     usbutils
+     gptfdisk
+     parted
+     #programs
+     discord
+     obs-studio
+     blender
+     reaper
+     renpy
+     firefox
+     godot_4
+     gimp-with-plugins
+     megasync
+     # desktop
+     ly
+     hyprland
+     eww-wayland
+     foot
+     rofi-wayland
+     swww
+     grimblast
+     libnotify
+     brightnessctl
+     nwg-look
+     swaylock
+     # fonts
+     terminus_font
+     terminus-nerdfont
+     terminus_font_ttf
+     # plugins
+     obs-studio-plugins.wlrobs
+     gimpPlugins.gap
+  ];
+
+  # enable the goods
+  # programs.mtr.enable = true;
+  # programs.gnupg.agent = {
+  #   enable = true;
+  #   enableSSHSupport = true;
+  # };
+  # Enable the OpenSSH daemon.
+  # services.openssh.enable = true;
+  # Open ports in the firewall.
+  # networking.firewall.allowedTCPPorts = [ ... ];
+  # networking.firewall.allowedUDPPorts = [ ... ];
+  # Or disable the firewall altogether.
+  # networking.firewall.enable = false;
+
+  # copy config (/run/current-system/configuration.nix)
+  system.copySystemConfiguration = true;
+
+  
+  # dont fuck with this, see `man configuration.nix` or https://nixos.org/manual/nixos/stable/options#opt-system.stateVersion .
+  system.stateVersion = "23.11";
+
+}
+

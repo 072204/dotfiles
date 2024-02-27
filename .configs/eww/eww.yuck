@@ -1,0 +1,25 @@
+(defwindow bar
+           :monitor 0
+           :geometry (geometry :x "0%"
+                               :y "15px"
+                               :width "90%"
+                               :height "25px"
+                               :anchor "bottom center")
+           :stacking "fg"
+	   :exclusive "true"
+           :reserve (struts :distance "40px" :side "top")
+           :windowtype "dock"
+           :wm-ignore false
+  "this is a bar")
+
+(defwindow right 
+           :monitor 0
+           :geometry (geometry :x "33.33%"
+                               )
+           :stacking "fg"
+	   :exclusive "true"
+           :reserve (struts :distance "40px" :side "top")
+           :windowtype "dock"
+           :wm-ignore false
+  "this is a right widget")
+
